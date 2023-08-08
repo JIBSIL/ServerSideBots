@@ -19,7 +19,7 @@ public class AutoLogerRunnable extends BukkitRunnable {
         for (int i = 0; i < playerInfoList.size(); i++)
         {
             FakePlayerInfo playerInfo = playerInfoList.get(i);
-            playerInfo.getEntityPlayer().e =  random.nextInt(10)+ 20;
+            playerInfo.getEntityPlayer().f =  random.nextInt(10)+ 20;
             if (playerInfo.getJoinTime()  + min > System.currentTimeMillis())
             {
                 if (random.nextInt(1000) > 850) {

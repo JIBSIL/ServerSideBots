@@ -3,6 +3,7 @@ package com.firesoftitan.play.titanbox.rfp.fakes;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.network.NetworkManager;
+import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.protocol.EnumProtocolDirection;
 import net.minecraft.network.protocol.Packet;
 
@@ -30,7 +31,7 @@ public class FakeNetworkManager  extends NetworkManager {
     
     //sendPacket
     @Override
-    public void a(Packet<?> packet, @Nullable GenericFutureListener<? extends Future<? super Void>> genericfuturelistener) {
+    public void a(Packet<?> packet, @Nullable PacketSendListener packetsendlistener) {
 
 
     }

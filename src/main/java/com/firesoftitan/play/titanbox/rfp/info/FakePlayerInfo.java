@@ -13,11 +13,13 @@ import net.minecraft.server.network.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.BufferedReader;
@@ -151,9 +153,11 @@ public class FakePlayerInfo {
         GameProfile gameProfile = new GameProfile(uuid, name);
         this.entityPlayer = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         Random random = new Random(System.currentTimeMillis());
-        this.entityPlayer.e =  random.nextInt(10)+ 20;
+        // changed ping field
+        this.entityPlayer.f = random.nextInt(10)+ 20;
         FakeNetworkManager networkmanager = new FakeNetworkManager(EnumProtocolDirection.a);
-        this.entityPlayer.b = new PlayerConnection(nmsServer, networkmanager, this.entityPlayer);
+        this.entityPlayer.c = new PlayerConnection(nmsServer, networkmanager, this.entityPlayer);
+        this.entityPlayer.getBukkitEntity().setInvisible(true);
         this.joinTime = System.currentTimeMillis();
 
     }
@@ -168,11 +172,11 @@ public class FakePlayerInfo {
     }
     public PlayerConnection getConnection()
     {
-        return this.entityPlayer.b;
+        return this.entityPlayer.c;
     }
     public FakeNetworkManager getFakeNetworkManager()
     {
-        return (FakeNetworkManager) this.entityPlayer.b.a;
+        return new FakeNetworkManager(EnumProtocolDirection.a);
     }
     public EntityPlayer getEntityPlayer() {
         return entityPlayer;
@@ -191,7 +195,7 @@ public class FakePlayerInfo {
         if (name.length() > 16) name = name.substring(0, 16);
         GameProfile gameProfile = new GameProfile(uuid, name);
         EntityPlayer entityPlayer = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
-        entityPlayer.b = new PlayerConnection(nmsServer, new FakeNetworkManager(EnumProtocolDirection.a), entityPlayer);
+        entityPlayer.c = new PlayerConnection(nmsServer, new FakeNetworkManager(EnumProtocolDirection.a), entityPlayer);
     }
     public void setSkin( UUID skin)
     {
