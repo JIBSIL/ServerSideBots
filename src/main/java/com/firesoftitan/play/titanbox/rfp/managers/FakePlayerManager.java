@@ -10,9 +10,9 @@ import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.players.PlayerList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_20_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_20_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R3.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -31,7 +31,7 @@ public class FakePlayerManager {
         playerHashMap = new HashMap<String, FakePlayerInfo>();
 
         // bf = getPlayerList
-        DedicatedPlayerList playerList = ((CraftServer) Bukkit.getServer()).getServer().bg();
+        DedicatedPlayerList playerList = ((CraftServer) Bukkit.getServer()).getServer().bi();
 
         Field privateStringField = null;
         try {
@@ -254,8 +254,8 @@ public class FakePlayerManager {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                     	// b.a = sendPacket
                         //((CraftPlayer) all).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, npc.getEntityPlayer())); //REMOVE PLAYER
-                        ((CraftPlayer)all).getHandle().c.a(new ClientboundPlayerInfoRemovePacket(List.of(npc.getUniqueID())));
-                        ((CraftPlayer)all).getHandle().c.a(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.a.d, npc.getEntityPlayer()));
+                        ((CraftPlayer)all).getHandle().b.a(new ClientboundPlayerInfoRemovePacket(List.of(npc.getUniqueID())));
+                        ((CraftPlayer)all).getHandle().b.a(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.a.d, npc.getEntityPlayer()));
                     }
                 }
                 catch (Exception e)
@@ -303,8 +303,8 @@ public class FakePlayerManager {
                 // ((CraftPlayer) player).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, pl.getEntityPlayer())); //ADD_PLAYER
                 // add player 1.20.1
                 //((CraftPlayer) player).getHandle().b.a(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, pl.getEntityPlayer())); //ADD_PLAYER
-                ((CraftPlayer)player).getHandle().c.a(new ClientboundPlayerInfoRemovePacket(List.of(pl.getUniqueID())));
-                ((CraftPlayer)player).getHandle().c.a(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.a.d, pl.getEntityPlayer()));
+                ((CraftPlayer)player).getHandle().b.a(new ClientboundPlayerInfoRemovePacket(List.of(pl.getUniqueID())));
+                ((CraftPlayer)player).getHandle().b.a(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.a.d, pl.getEntityPlayer()));
             }
         }
     }

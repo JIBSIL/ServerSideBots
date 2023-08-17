@@ -13,9 +13,9 @@ import net.minecraft.server.network.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_20_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.potion.PotionEffect;
@@ -154,9 +154,9 @@ public class FakePlayerInfo {
         this.entityPlayer = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         Random random = new Random(System.currentTimeMillis());
         // changed ping field
-        this.entityPlayer.f = random.nextInt(10)+ 20;
+        this.entityPlayer.e = random.nextInt(10)+ 20;
         FakeNetworkManager networkmanager = new FakeNetworkManager(EnumProtocolDirection.a);
-        this.entityPlayer.c = new PlayerConnection(nmsServer, networkmanager, this.entityPlayer);
+        this.entityPlayer.b = new PlayerConnection(nmsServer, networkmanager, this.entityPlayer);
         this.entityPlayer.getBukkitEntity().setInvisible(true);
         this.joinTime = System.currentTimeMillis();
 
@@ -172,7 +172,7 @@ public class FakePlayerInfo {
     }
     public PlayerConnection getConnection()
     {
-        return this.entityPlayer.c;
+        return this.entityPlayer.b;
     }
     public FakeNetworkManager getFakeNetworkManager()
     {
@@ -195,7 +195,7 @@ public class FakePlayerInfo {
         if (name.length() > 16) name = name.substring(0, 16);
         GameProfile gameProfile = new GameProfile(uuid, name);
         EntityPlayer entityPlayer = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
-        entityPlayer.c = new PlayerConnection(nmsServer, new FakeNetworkManager(EnumProtocolDirection.a), entityPlayer);
+        entityPlayer.b = new PlayerConnection(nmsServer, new FakeNetworkManager(EnumProtocolDirection.a), entityPlayer);
     }
     public void setSkin( UUID skin)
     {
